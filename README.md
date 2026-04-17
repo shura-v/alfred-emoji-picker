@@ -24,6 +24,19 @@ go install
 
 Copy the executable in the Alfred workflow directory and export the new workflow from Alfred.
 
+# Update emojis
+
+1) Emoji metadata (names, slugs, keywords) lives in the [`turtle`](https://github.com/devnoname120/turtle) module. Check the README on how to regenerate `emojis.go` to make it up-to-date, and push a new tag.
+
+2) Bump the dependency of `alfred-emoji-picker` via `go get github.com/devnoname120/turtle@latest`.
+
+3) Re-render the PNGs from the current Apple Color Emoji font and re-optimize them (macOS only; requires [uv](https://docs.astral.sh/uv/), `pngquant`, and `oxipng`):
+
+    ```shell
+    uv run --project scripts scripts/emojis-generator.py
+    ./gen-emojis.sh
+    ```
+
 # TODO
 
 - [x] Restore clipboard after pasting emoji

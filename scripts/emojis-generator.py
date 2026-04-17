@@ -60,7 +60,7 @@ def render_emoji_image(emoji_str, size=IMAGE_SIZE):
     return bytes(png_data)
 
 def main():
-    emoji_data_url = "https://github.com/muan/unicode-emoji-json/raw/refs/heads/main/data-by-emoji.json"
+    emoji_data_url = "https://raw.githubusercontent.com/muan/unicode-emoji-json/main/data-by-emoji.json"
     emoji_data = download_json(emoji_data_url)
 
     for emoji_char, data in emoji_data.items():
