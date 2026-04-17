@@ -4,9 +4,6 @@ version = "0.1.0"
 description = "Add your description here"
 requires-python = ">=3.13"
 dependencies = [
-    "fonttools>=4.55.8",
-    "pillow>=11.1.0",
-    "pyobjc>=11.0",
+    "pyobjc-framework-Cocoa>=12.1",
     "requests>=2.32.3",
-    "uharfbuzz>=0.45.0",
 ]

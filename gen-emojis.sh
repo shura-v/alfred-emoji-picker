@@ -3,8 +3,7 @@
 set -exuo pipefail
 
 # Optional: -28% in size (76.7 MB → 54.9 MB) lossy but cannot see any difference visually
-pngquant --verbose --force --skip-if-larger --speed=1 --quality=95-100 --ext=.png emojis/*
-.png || true
+pngquant --verbose --force --skip-if-larger --speed=1 --quality=95-100 --ext=.png emojis/*.png || true
 
 # Optional: -13% in size (54.9 MB → 47.8 MB) lossless so why not I guess
 oxipng --dir emojis --strip safe --interlace 0 --opt=max --alpha emojis/*.png || true
