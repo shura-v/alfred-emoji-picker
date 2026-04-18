@@ -6,8 +6,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/deanishe/awgo v0.29.1 h1:yKAyy0e+HR60iPxaKHhY3hdTM5GCsECpWTP79j04bHg=
 github.com/deanishe/awgo v0.29.1/go.mod h1:1yGF+uQfWXX99TiDfAYYKjJpHTq5lHEmvHFEVCHo6KA=
-github.com/devnoname120/turtle v0.3.1 h1:VWoxI2umaPiV7OONPSBWPysUPM6Ibnnky5x+/cXdAro=
-github.com/devnoname120/turtle v0.3.1/go.mod h1:gC45U48A/ML2CrjCX1plnalWJ3tRUev//b5qqDwR+X4=
+github.com/devnoname120/turtle v0.3.2 h1:lXMuTZjSM8K4FqvEcwDD9k7SnIMBdgbOElpoHsL1Tgs=
+github.com/devnoname120/turtle v0.3.2/go.mod h1:gC45U48A/ML2CrjCX1plnalWJ3tRUev//b5qqDwR+X4=
 github.com/go-logr/logr v1.4.2 h1:6pFjapn8bFcIbiKo3XT4j/BhANplGihG6tvd+8rYgrY=
 github.com/go-logr/logr v1.4.2/go.mod h1:9T104GzyrTigFIr8wt5mBrctHMim0Nb2HLGrmQ40KvY=
 github.com/go-task/slim-sprig/v3 v3.0.0 h1:sUs3vkvUymDpBKi3qH1YSqBQk9+9D/8M2mN1vB6EwHI=
