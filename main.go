@@ -35,9 +35,12 @@ func run() {
 	}
 
 	query := os.Args[1]
-	results := search(query)
 	showUsageCount := query == ""
-	stats := usageStats()
+	stats := usage.Stats{}
+	if showUsageCount {
+		stats = usageStats()
+	}
+	results := search(query, stats)
 
 	for _, result := range results {
 		isResetItem := result.Char == "__reset_frequent__"
@@ -81,14 +84,8 @@ func main() {
 	wf.Run(run)
 }
 
-func search(query string) []*turtle.Emoji {
+func search(query string, stats usage.Stats) []*turtle.Emoji {
 	if query == "" {
-		stats, err := usage.Load()
-		if err != nil {
-			log.Printf("load emoji usage stats: %v", err)
-			return []*turtle.Emoji{}
-		}
-
 		return frequentResults(stats)
 	}
 

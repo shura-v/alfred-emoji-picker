@@ -46,7 +46,7 @@ func TestFrequentResultsSortByUsageDescending(t *testing.T) {
 }
 
 func TestSearchKeepsExactKeywordBeforePrefixKeyword(t *testing.T) {
-	results := search("cool")
+	results := search("cool", nil)
 
 	var coolButtonIndex = -1
 	var sunglassesIndex = -1
@@ -69,7 +69,7 @@ func TestSearchKeepsExactKeywordBeforePrefixKeyword(t *testing.T) {
 }
 
 func TestSearchOffersResetFrequentFirst(t *testing.T) {
-	results := search("reset")
+	results := search("reset", nil)
 
 	if len(results) == 0 {
 		t.Fatalf("expected reset item in results")
@@ -81,7 +81,7 @@ func TestSearchOffersResetFrequentFirst(t *testing.T) {
 }
 
 func TestSearchOffersResetFrequentForLongerResetQuery(t *testing.T) {
-	results := search("reset frequent")
+	results := search("reset frequent", nil)
 
 	if len(results) == 0 {
 		t.Fatalf("expected reset item in results")
