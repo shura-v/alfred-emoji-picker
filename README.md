@@ -30,15 +30,8 @@ The binary now supports a small local usage database in Alfred's workflow data d
 
 - Empty query shows only emoji the user has actually selected before.
 - The amount shown on empty query is controlled by the Alfred variable `frequent_emoji_limit`.
-- Matching results use usage frequency as a tiebreaker, so your go-to emoji gradually bubble up.
-
-To persist usage counts, call the workflow binary once when the user selects an emoji:
-
-```shell
-./alfred-emoji-picker --record "{query}"
-```
-
-In Alfred, wire this as a separate `Run Script` / `External Trigger` step before the existing paste/copy action, and pass the selected emoji character as `{query}`.
+- When the query is empty, previously selected emoji are ordered by usage count.
+- You can reset the stored history with `./alfred-emoji-picker --reset-frequent`.
 
 # Update emojis
 
@@ -61,5 +54,4 @@ In Alfred, wire this as a separate `Run Script` / `External Trigger` step before
 - [x] Add scoring on results (exact match > partial match at beginning > partial match > keywords, categories, etc…)
 - [x] Add scripts to update the emoji database
 - [x] Support for auto-updates
-- [ ] Add content for the "About this Workflow" tab in the config builder
 - [ ] Support for skin tones (note: `Turtle` doesn't support them)

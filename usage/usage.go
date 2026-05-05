@@ -62,6 +62,19 @@ func Save(stats Stats) error {
 	return os.WriteFile(path, data, 0o644)
 }
 
+func Reset() error {
+	path, err := statsFilePath()
+	if err != nil {
+		return err
+	}
+
+	if err := os.Remove(path); err != nil && !errors.Is(err, os.ErrNotExist) {
+		return err
+	}
+
+	return nil
+}
+
 func (s Stats) Count(emojiChar string) int {
 	if s == nil {
 		return 0

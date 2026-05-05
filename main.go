@@ -29,22 +29,33 @@ func run() {
 		return
 	}
 
+	if os.Args[1] == "--reset-frequent" {
+		resetFrequent()
+		return
+	}
+
 	query := os.Args[1]
 	results := search(query)
 	showUsageCount := query == ""
 	stats := usageStats()
 
 	for _, result := range results {
+		isResetItem := result.Char == "__reset_frequent__"
+
 		subtitle := fmt.Sprintf("Input \"%s\" (%s) into foremost application", result.Char, result.Slug)
-		if showUsageCount {
+		if showUsageCount && !isResetItem {
 			subtitle = fmt.Sprintf("%s · Used %d times", subtitle, stats.Count(result.Char))
 		}
 
 		item := wf.NewItem(result.Name).
-			Subtitle(subtitle).
 			Arg(result.Char).
-			Icon(&aw.Icon{Value: fmt.Sprintf("emojis/%s.png", result.Slug)}).
 			Valid(true)
+
+		if !isResetItem {
+			item.Subtitle(subtitle)
+		}
+
+		item.Icon(&aw.Icon{Value: fmt.Sprintf("emojis/%s.png", result.Slug)})
 
 		if !showUsageCount {
 			item.UID(result.Char)
@@ -135,7 +146,17 @@ func search(query string) []*turtle.Emoji {
 		categoryPrefixMatches,
 	}
 
-	return lo.Uniq(lo.Flatten(results))
+	consolidated := lo.Uniq(lo.Flatten(results))
+	if shouldOfferResetFrequent(query) {
+		resetItem := &turtle.Emoji{
+			Name: "Reset frequent emoji",
+			Slug: "wastebasket",
+			Char: "__reset_frequent__",
+		}
+		consolidated = append([]*turtle.Emoji{resetItem}, consolidated...)
+	}
+
+	return consolidated
 }
 
 func recordSelection() {
@@ -144,6 +165,12 @@ func recordSelection() {
 	}
 
 	if err := usage.Increment(os.Args[2]); err != nil {
+		wf.FatalError(err)
+	}
+}
+
+func resetFrequent() {
+	if err := usage.Reset(); err != nil {
 		wf.FatalError(err)
 	}
 }
@@ -195,6 +222,11 @@ func frequentEmojiLimit() int {
 	}
 
 	return limit
+}
+
+func shouldOfferResetFrequent(query string) bool {
+	query = strings.TrimSpace(strings.ToLower(query))
+	return query != "" && strings.HasPrefix(query, "reset")
 }
 
 func emojiByUsageKey(emojiChar string) *turtle.Emoji {

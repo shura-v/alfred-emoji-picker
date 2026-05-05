@@ -67,3 +67,27 @@ func TestSearchKeepsExactKeywordBeforePrefixKeyword(t *testing.T) {
 		t.Fatalf("expected exact keyword match before prefix keyword match, got cool=%d sunglasses=%d", coolButtonIndex, sunglassesIndex)
 	}
 }
+
+func TestSearchOffersResetFrequentFirst(t *testing.T) {
+	results := search("reset")
+
+	if len(results) == 0 {
+		t.Fatalf("expected reset item in results")
+	}
+
+	if results[0].Char != "__reset_frequent__" {
+		t.Fatalf("expected reset item first, got %q", results[0].Char)
+	}
+}
+
+func TestSearchOffersResetFrequentForLongerResetQuery(t *testing.T) {
+	results := search("reset frequent")
+
+	if len(results) == 0 {
+		t.Fatalf("expected reset item in results")
+	}
+
+	if results[0].Char != "__reset_frequent__" {
+		t.Fatalf("expected reset item first, got %q", results[0].Char)
+	}
+}

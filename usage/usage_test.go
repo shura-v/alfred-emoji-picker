@@ -1,6 +1,7 @@
 package usage
 
 import (
+	"errors"
 	"os"
 	"path/filepath"
 	"testing"
@@ -53,5 +54,22 @@ func TestSaveCreatesExpectedFile(t *testing.T) {
 
 	if _, err := os.Stat(filepath.Join(dataDir, statsFileName)); err != nil {
 		t.Fatalf("stat saved file: %v", err)
+	}
+}
+
+func TestResetRemovesStatsFile(t *testing.T) {
+	dataDir := t.TempDir()
+	t.Setenv("alfred_workflow_data", dataDir)
+
+	if err := Save(Stats{"🙂": 3}); err != nil {
+		t.Fatalf("save stats: %v", err)
+	}
+
+	if err := Reset(); err != nil {
+		t.Fatalf("reset stats: %v", err)
+	}
+
+	if _, err := os.Stat(filepath.Join(dataDir, statsFileName)); !errors.Is(err, os.ErrNotExist) {
+		t.Fatalf("expected stats file to be removed, got err=%v", err)
 	}
 }
